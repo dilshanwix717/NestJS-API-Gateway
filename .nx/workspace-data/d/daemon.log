@@ -1,0 +1,218 @@
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:48.990Z - Started listening on: \\.\pipe\nx\C:\Users\AR3\AppData\Local\Temp\4b22dcabd014c9b3a7c3\d.sock
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:48.992Z - [WATCHER]: Subscribed to changes within: C:\Users\AR3\Documents\GitHub\nest-js-api-gateway (native)
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:48.998Z - Established a connection. Number of open connections: 1
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:49.000Z - Closed a connection. Number of open connections: 0
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:49.000Z - Established a connection. Number of open connections: 1
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:49.002Z - [REQUEST]: Responding to the client. Shutdown initiated
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:49.004Z - Done responding to the client Shutdown initiated
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:49.004Z - Handled FORCE_SHUTDOWN. Handling time: 0. Response time: 2.
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:49.004Z - Closed a connection. Number of open connections: 0
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:49.005Z - [WATCHER]: Stopping the watcher for C:\Users\AR3\Documents\GitHub\nest-js-api-gateway (sources)
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:49.005Z - [WATCHER]: Stopping the watcher for C:\Users\AR3\Documents\GitHub\nest-js-api-gateway (outputs)
+[NX v20.8.3 Daemon Server] - 2025-12-17T11:29:49.006Z - Server stopped because: "Request to shutdown"
+[NX Daemon Server] - 2025-12-17T11:30:51.393Z - Started listening on: \\.\pipe\nx\C:\Users\AR3\AppData\Local\Temp\4b22dcabd014c9b3a7c3\d.sock
+[NX Daemon Server] - 2025-12-17T11:30:51.398Z - [WATCHER]: Subscribed to changes within: C:\Users\AR3\Documents\GitHub\nest-js-api-gateway (native)
+[NX Daemon Server] - 2025-12-17T11:30:51.403Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2025-12-17T11:30:51.405Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2025-12-17T11:30:51.405Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2025-12-17T11:30:51.406Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2025-12-17T11:30:51.606Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2025-12-17T11:30:51.607Z - [REQUEST]: 
+[NX Daemon Server] - 2025-12-17T11:30:51.607Z - [REQUEST]: 
+[NX Daemon Server] - 2025-12-17T11:30:51.613Z - Time taken for 'loadNxPlugins' 197.5172ms
+[NX Daemon Server] - 2025-12-17T11:30:51.636Z - Time taken for 'build-project-configs' 12.32159999999999ms
+[NX Daemon Server] - 2025-12-17T11:30:51.666Z - [SYNC]: collect registered sync generators
+[NX Daemon Server] - 2025-12-17T11:30:51.667Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2025-12-17T11:30:51.667Z - Time taken for 'total for creating and serializing project graph' 260.5842ms
+[NX Daemon Server] - 2025-12-17T11:30:51.668Z - Done responding to the client project-graph
+[NX Daemon Server] - 2025-12-17T11:30:51.668Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 261. Response time: 1.
+[NX Daemon Server] - 2025-12-17T11:30:51.672Z - [REQUEST]: Responding to the client. handleGlob
+[NX Daemon Server] - 2025-12-17T11:30:51.672Z - Done responding to the client handleGlob
+[NX Daemon Server] - 2025-12-17T11:30:51.672Z - Handled GLOB. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2025-12-17T11:30:51.682Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2025-12-17T11:30:51.682Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2025-12-17T11:30:51.682Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2025-12-17T11:30:51.683Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2025-12-17T11:30:51.683Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2025-12-17T11:30:51.684Z - Time taken for 'total for creating and serializing project graph' 0.3411000000000399ms
+[NX Daemon Server] - 2025-12-17T11:30:51.684Z - Done responding to the client project-graph
+[NX Daemon Server] - 2025-12-17T11:30:51.684Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 1.
+[NX Daemon Server] - 2025-12-17T11:30:51.687Z - [REQUEST]: Responding to the client with an error. Invalid payload from the client Unsupported payload sent to daemon server: {"type":"MULTI_GLOB","globs":["{**/.eslintrc,**/.eslintrc.js,**/.eslintrc.cjs,**/.eslintrc.yaml,**/.eslintrc.yml,**/.eslintrc.json,**/eslint.config.js,**/eslint.config.cjs,**/project.json,**/package.json}"]}
+Error: Unsupported payload sent to daemon server: {"type":"MULTI_GLOB","globs":["{**/.eslintrc,**/.eslintrc.js,**/.eslintrc.cjs,**/.eslintrc.yaml,**/.eslintrc.yml,**/.eslintrc.json,**/eslint.config.js,**/eslint.config.cjs,**/project.json,**/package.json}"]}
+    at handleMessage (C:\Users\AR3\AppData\Local\Temp\tmp-2868-TGEfRFKsGlci\node_modules\nx\src\daemon\server\server.js:167:104)
+    at C:\Users\AR3\AppData\Local\Temp\tmp-2868-TGEfRFKsGlci\node_modules\nx\src\daemon\server\server.js:72:15
+    at Socket.<anonymous> (C:\Users\AR3\AppData\Local\Temp\tmp-2868-TGEfRFKsGlci\node_modules\nx\src\utils\consume-messages-from-socket.js:13:17)
+    at Socket.emit (node:events:507:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+[NX Daemon Server] - 2025-12-17T11:30:51.688Z - Done responding to the client null
+[NX Daemon Server] - 2025-12-17T11:30:51.692Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2025-12-17T11:30:51.693Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2025-12-17T11:33:53.951Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2025-12-17T11:33:53.953Z - [WATCHER]: 0 file(s) created or restored, 3 file(s) modified, 0 file(s) deleted
+[NX Daemon Server] - 2025-12-17T11:33:53.954Z - [WATCHER]: Stopping the watcher for C:\Users\AR3\Documents\GitHub\nest-js-api-gateway (sources)
+[NX Daemon Server] - 2025-12-17T11:33:53.954Z - [WATCHER]: Stopping the watcher for C:\Users\AR3\Documents\GitHub\nest-js-api-gateway (outputs)
+[NX Daemon Server] - 2025-12-17T11:33:53.955Z - Server stopped because: "Stopping the daemon the set of ignored files changed (native)"
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.252Z - Started listening on: \\.\pipe\nx\C:\Users\AR3\AppData\Local\Temp\4f78b92eeceef0b113aa\d.sock
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.255Z - [WATCHER]: Subscribed to changes within: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (native)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.256Z - [NX-CONSOLE]: Pulling latest Nx (latest) to check console status...
+Fetching nx...
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.595Z - Established a connection. Number of open connections: 1
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.595Z - Established a connection. Number of open connections: 2
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.597Z - Closed a connection. Number of open connections: 1
+Time for 'plugin worker 32992 code loading' 5.7073
+Time for 'plugin worker 33008 code loading' 5.479700000000001
+Time for 'plugin worker 29864 code loading' 5.450199999999999
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.641Z - Received raw message of length 32
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.641Z - Received json message of type GET_NX_CONSOLE_STATUS
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.641Z - Serializing response for GET_NX_CONSOLE_STATUS message in json mode
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.642Z - Responding to GET_NX_CONSOLE_STATUS message
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.642Z - [REQUEST]: Responding to the client. handleGetNxConsoleStatus
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.642Z - Done responding to the client handleGetNxConsoleStatus
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.642Z - Handled json message GET_NX_CONSOLE_STATUS. Handling time: 0. Response time: 1.
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.684Z - Established a connection. Number of open connections: 2
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.684Z - Closed a connection. Number of open connections: 1
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.688Z - Closed a connection. Number of open connections: 0
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.916Z - Time taken for 'Load Nx Plugin: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway\.nx\installation\node_modules\nx\src\plugins\js' 369.7486ms
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.932Z - Time taken for 'Load Nx Plugin: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway\.nx\installation\node_modules\nx\src\plugins\project-json\build-nodes\project-json' 384.10339999999997ms
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.943Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.943Z - [REQUEST]: 
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.943Z - [REQUEST]: 
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.948Z - Time taken for 'loadDefaultNxPlugins' 396.5163ms
+Time for 'nx/core/project-json:createNodes' 0.2015999999999849
+Time for 'nx/core/package-json:createNodes' 0.9558000000000106
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 11.42089999999996
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:10.978Z - Time taken for 'build-project-configs' 17.97969999999998ms
+Time for 'build typescript dependencies' 0.26370000000002847
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.016Z - [SYNC]: collect registered sync generators
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.017Z - Time taken for 'total execution time for createProjectGraph()' 41.16819999999984ms
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.045Z - Started listening on: \\.\pipe\nx\C:\Users\AR3\AppData\Local\Temp\5ead1f2cdb758d826515\d.sock
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.072Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (sources)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.072Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (outputs)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.073Z - Server stopped because: "this process is no longer the current daemon (native)"
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.084Z - [WATCHER]: Subscribed to changes within: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (native)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.085Z - [NX-CONSOLE]: Pulling latest Nx (latest) to check console status...
+Fetching nx...
+Time for 'plugin worker 4132 code loading' 5.596599999999999
+Time for 'plugin worker 32072 code loading' 5.725999999999999
+Time for 'plugin worker 32712 code loading' 5.449399999999997
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.710Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.710Z - [REQUEST]: 
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.711Z - [REQUEST]: 
+Time for 'nx/core/project-json:createNodes' 0.19819999999998572
+Time for 'nx/core/package-json:createNodes' 1.0792999999999893
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 4.9354000000000156
+Time for 'build typescript dependencies' 0.12549999999998818
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.750Z - [SYNC]: collect registered sync generators
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.909Z - Established a connection. Number of open connections: 1
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.910Z - Closed a connection. Number of open connections: 0
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:11.910Z - Established a connection. Number of open connections: 1
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.229Z - Received raw message of length 32
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.229Z - Received json message of type GET_NX_CONSOLE_STATUS
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.230Z - Serializing response for GET_NX_CONSOLE_STATUS message in json mode
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.230Z - Responding to GET_NX_CONSOLE_STATUS message
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.230Z - [REQUEST]: Responding to the client. handleGetNxConsoleStatus
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.230Z - Done responding to the client handleGetNxConsoleStatus
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.230Z - Handled json message GET_NX_CONSOLE_STATUS. Handling time: 1. Response time: 0.
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.273Z - Established a connection. Number of open connections: 2
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.274Z - Closed a connection. Number of open connections: 1
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.277Z - Closed a connection. Number of open connections: 0
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.604Z - Started listening on: \\.\pipe\nx\C:\Users\AR3\AppData\Local\Temp\0242090fcd0a1870f71d\d.sock
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.607Z - [WATCHER]: Subscribed to changes within: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (native)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.607Z - [NX-CONSOLE]: Pulling latest Nx (latest) to check console status...
+Fetching nx...
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.615Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (sources)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.615Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (outputs)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:12.615Z - Server stopped because: "this process is no longer the current daemon (native)"
+Time for 'plugin worker 1924 code loading' 6.805
+Time for 'plugin worker 32808 code loading' 6.2637
+Time for 'plugin worker 33672 code loading' 6.3047
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.291Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.291Z - [REQUEST]: 
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.291Z - [REQUEST]: 
+Time for 'nx/core/project-json:createNodes' 0.20249999999998636
+Time for 'nx/core/package-json:createNodes' 0.9391999999999712
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 5.106099999999969
+Time for 'build typescript dependencies' 0.1342000000000212
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.332Z - [SYNC]: collect registered sync generators
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.488Z - Started listening on: \\.\pipe\nx\C:\Users\AR3\AppData\Local\Temp\e43fcfc45670c2dd2ca5\d.sock
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.501Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (sources)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.501Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (outputs)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.502Z - Server stopped because: "this process is no longer the current daemon (native)"
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.505Z - [WATCHER]: Subscribed to changes within: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (native)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.505Z - [NX-CONSOLE]: Pulling latest Nx (latest) to check console status...
+Fetching nx...
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.852Z - Established a connection. Number of open connections: 1
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.852Z - Established a connection. Number of open connections: 2
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.854Z - Closed a connection. Number of open connections: 1
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.857Z - Received raw message of length 32
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.857Z - Received json message of type GET_NX_CONSOLE_STATUS
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.858Z - Serializing response for GET_NX_CONSOLE_STATUS message in json mode
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.858Z - Responding to GET_NX_CONSOLE_STATUS message
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.858Z - [REQUEST]: Responding to the client. handleGetNxConsoleStatus
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.858Z - Done responding to the client handleGetNxConsoleStatus
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.858Z - Handled json message GET_NX_CONSOLE_STATUS. Handling time: 0. Response time: 0.
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.906Z - Established a connection. Number of open connections: 2
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.907Z - Closed a connection. Number of open connections: 1
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:13.911Z - Closed a connection. Number of open connections: 0
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:14.333Z - Started listening on: \\.\pipe\nx\C:\Users\AR3\AppData\Local\Temp\c50e7d104e5b4bf35ba3\d.sock
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:14.337Z - [WATCHER]: Subscribed to changes within: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (native)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:14.338Z - [NX-CONSOLE]: Pulling latest Nx (latest) to check console status...
+Fetching nx...
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:14.357Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (sources)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:14.358Z - Time taken for 'Load Nx Plugin: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway\node_modules\nx\src\plugins\package-json' 542.5947999999999ms
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:14.358Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (outputs)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:14.359Z - Server stopped because: "this process is no longer the current daemon (native)"
+Time for 'plugin worker 33708 code loading' 6.277199999999997
+Time for 'plugin worker 33616 code loading' 6.6982
+Time for 'plugin worker 33500 code loading' 5.8568
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:15.227Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:15.227Z - [REQUEST]: 
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:15.227Z - [REQUEST]: 
+Time for 'nx/core/project-json:createNodes' 0.19589999999999463
+Time for 'nx/core/package-json:createNodes' 1.0051000000000272
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 6.056499999999971
+Time for 'build typescript dependencies' 0.1312000000000353
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:15.276Z - [SYNC]: collect registered sync generators
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:34:16.213Z - [NX-CONSOLE]: Failed to use latest Nx, falling back to local implementation. Error: Command failed: npm install -D nx@latest --ignore-scripts
+^C
+DEBUG nx::native::ide::install: Detected editor: Unknown
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:27.932Z - [WATCHER]: .gitignore was modified
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:27.932Z - [WATCHER]: Processing file changes in outputs
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:27.933Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (sources)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:27.933Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (outputs)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:27.933Z - Server stopped because: "Stopping the daemon the set of ignored files changed (native)"
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.173Z - Started listening on: \\.\pipe\nx\C:\Users\AR3\AppData\Local\Temp\08548bbf3b45e8f30bc2\d.sock
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.175Z - [WATCHER]: Subscribed to changes within: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (native)
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.176Z - [NX-CONSOLE]: Pulling latest Nx (latest) to check console status...
+Fetching nx...
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.450Z - Established a connection. Number of open connections: 1
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.452Z - Closed a connection. Number of open connections: 0
+Time for 'plugin worker 6060 code loading' 5.475100000000001
+Time for 'plugin worker 29256 code loading' 5.478200000000001
+Time for 'plugin worker 33044 code loading' 5.3629
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.703Z - Time taken for 'Load Nx Plugin: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway\.nx\installation\node_modules\nx\src\plugins\project-json\build-nodes\project-json' 264.86259999999993ms
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.706Z - Time taken for 'Load Nx Plugin: c:\Users\AR3\Documents\GitHub\nest-js-api-gateway\.nx\installation\node_modules\nx\src\plugins\package-json' 268.95140000000004ms
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.728Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.728Z - [REQUEST]: 
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.728Z - [REQUEST]: 
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.734Z - Time taken for 'loadDefaultNxPlugins' 290.6806ms
+Time for 'nx/core/project-json:createNodes' 0.18449999999995725
+Time for 'nx/core/package-json:createNodes' 0.9912000000000489
+Time for 'nx/js/dependencies-and-lockfile:createNodes' 5.136500000000012
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.758Z - Time taken for 'build-project-configs' 11.829200000000014ms
+Time for 'build typescript dependencies' 0.18120000000004666
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.771Z - [SYNC]: collect registered sync generators
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:40.772Z - Time taken for 'total execution time for createProjectGraph()' 15.686699999999973ms
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:45.657Z - [NX-CONSOLE]: Successfully pulled latest Nx to C:\Users\AR3\AppData\Local\Temp\tmp-28000-rn1UVMd0bYev
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:45.869Z - [NX-CONSOLE]: Using local implementation (NX_USE_LOCAL=true or inner call)
+DEBUG nx::native::ide::install: Detected editor: Unknown
+[NX v22.2.7 Daemon Server] - 2025-12-17T11:36:45.869Z - [NX-CONSOLE]: Console status check completed, shouldPrompt: false
+[NX v22.2.7 Daemon Server] - 2025-12-17T12:22:57.724Z - [WATCHER]: .gitignore was deleted
+[NX v22.2.7 Daemon Server] - 2025-12-17T12:22:57.725Z - [WATCHER]: Processing file changes in outputs
+[NX v22.2.7 Daemon Server] - 2025-12-17T12:22:57.725Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (sources)
+[NX v22.2.7 Daemon Server] - 2025-12-17T12:22:57.725Z - [WATCHER]: Stopping the watcher for c:\Users\AR3\Documents\GitHub\nest-js-api-gateway (outputs)
+[NX v22.2.7 Daemon Server] - 2025-12-17T12:22:57.726Z - [NX-CONSOLE]: Cleaning up latest Nx installation from C:\Users\AR3\AppData\Local\Temp\tmp-28000-rn1UVMd0bYev
+[NX v22.2.7 Daemon Server] - 2025-12-17T12:22:57.726Z - Server stopped because: "Stopping the daemon the set of ignored files changed (native)"

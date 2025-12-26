@@ -1,8 +1,9 @@
-import type { ClientProxy } from '@nestjs/microservices';
-import type { AuthLoginRequestDto } from '@/lib/dto/auth-login.dto';
-import type { AuthLoginResponseDto } from '@/lib/dto/auth-login-response.dto';
+import { AuthLoginRequestDto } from '@/lib/dto/auth-login.dto';
+import { AuthSignUpRequestDto } from '@/lib/dto/auth-signup.dto';
+import { AuthService } from './auth.service';
 export declare class AuthController {
-    private readonly authClient;
-    constructor(authClient: ClientProxy);
-    login(body: AuthLoginRequestDto): Promise<AuthLoginResponseDto>;
+    private readonly authService;
+    constructor(authService: AuthService);
+    login(body: AuthLoginRequestDto): Promise<unknown>;
+    signUp(body: AuthSignUpRequestDto): Promise<unknown>;
 }

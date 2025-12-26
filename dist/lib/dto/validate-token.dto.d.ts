@@ -1,8 +1,9 @@
-export interface ValidateTokenResponse {
+export declare class ValidatedUserDto {
+    userId: string;
+    roles?: string[];
+}
+export declare class ValidateTokenResponseDto {
     valid: boolean;
-    user?: {
-        userId: string;
-        roles?: string[];
-    };
+    user?: ValidatedUserDto;
     error?: string;
 }

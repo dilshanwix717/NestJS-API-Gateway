@@ -1,7 +1,16 @@
 //apps/api-gateway/src/lib/user.dto.ts
-export interface UserDto {
+import { IsOptional, IsString } from 'class-validator';
+
+export class UserDto {
+  @IsString()
   id: string;
+
+  @IsString()
   name: string;
+
+  @IsOptional()
+  @IsString()
   email?: string;
-  // other user fields returned by the user-service
+
+  // Add more validated fields as user-service evolves
 }

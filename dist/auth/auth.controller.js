@@ -14,14 +14,18 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const rxjs_1 = require("rxjs");
+const auth_login_dto_1 = require("../lib/dto/auth-login.dto");
+const auth_signup_dto_1 = require("../lib/dto/auth-signup.dto");
+const auth_service_1 = require("./auth.service");
 let AuthController = class AuthController {
-    constructor(authClient) {
-        this.authClient = authClient;
+    constructor(authService) {
+        this.authService = authService;
     }
-    async login(body) {
-        const result$ = this.authClient.send('auth-login', body);
-        return (0, rxjs_1.firstValueFrom)(result$);
+    login(body) {
+        return this.authService.send('auth-login', body);
+    }
+    signUp(body) {
+        return this.authService.send('auth-signup', body);
     }
 };
 exports.AuthController = AuthController;
@@ -29,12 +33,18 @@ __decorate([
     (0, common_1.Post)('login'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:paramtypes", [auth_login_dto_1.AuthLoginRequestDto]),
+    __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Post)('signup'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [auth_signup_dto_1.AuthSignUpRequestDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "signUp", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __param(0, (0, common_1.Inject)('AUTH-SERVICE')),
-    __metadata("design:paramtypes", [Function])
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

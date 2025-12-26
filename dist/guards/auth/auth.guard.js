@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthGuard = void 0;
 const common_1 = require("@nestjs/common");
 const rxjs_1 = require("rxjs");
+const services_constants_1 = require("../../common/constants/services.constants");
 let AuthGuard = AuthGuard_1 = class AuthGuard {
     constructor(authClient) {
         this.authClient = authClient;
@@ -35,14 +36,10 @@ let AuthGuard = AuthGuard_1 = class AuthGuard {
         try {
             const result$ = this.authClient.send('validate-token', token);
             const result = await (0, rxjs_1.firstValueFrom)(result$);
-            console.log('Validation result:', result);
             if (!result?.valid || !result.user) {
                 this.logger.warn(`Token validation failed for request to ${req.path}`);
-                console.log('Invalid token or missing user in validation result');
-                console.log('Validation result details:', result.user);
-                throw new common_1.UnauthorizedException('Invalid token');
+                throw new common_1.UnauthorizedException('Invalid or expired token');
             }
-            console.log('Token validated successfully:', result);
             const user = {
                 userId: result.user.userId,
                 roles: result.user.roles,
@@ -59,7 +56,7 @@ let AuthGuard = AuthGuard_1 = class AuthGuard {
 exports.AuthGuard = AuthGuard;
 exports.AuthGuard = AuthGuard = AuthGuard_1 = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, common_1.Inject)('AUTH-SERVICE')),
+    __param(0, (0, common_1.Inject)(services_constants_1.SERVICES.AUTH)),
     __metadata("design:paramtypes", [Function])
 ], AuthGuard);
 //# sourceMappingURL=auth.guard.js.map

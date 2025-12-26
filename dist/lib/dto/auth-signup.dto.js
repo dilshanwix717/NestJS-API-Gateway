@@ -9,18 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthLoginRequestDto = void 0;
+exports.AuthSignUpRequestDto = void 0;
 const class_validator_1 = require("class-validator");
-class AuthLoginRequestDto {
+class AuthSignUpRequestDto {
 }
-exports.AuthLoginRequestDto = AuthLoginRequestDto;
+exports.AuthSignUpRequestDto = AuthSignUpRequestDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AuthSignUpRequestDto.prototype, "username", void 0);
 __decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], AuthLoginRequestDto.prototype, "email", void 0);
+], AuthSignUpRequestDto.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MinLength)(6),
+    (0, class_validator_1.MinLength)(8),
     __metadata("design:type", String)
-], AuthLoginRequestDto.prototype, "password", void 0);
-//# sourceMappingURL=auth-login.dto.js.map
+], AuthSignUpRequestDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsString)({ each: true }),
+    __metadata("design:type", Array)
+], AuthSignUpRequestDto.prototype, "roles", void 0);
+//# sourceMappingURL=auth-signup.dto.js.map

@@ -1,4 +1,4 @@
-export interface AuthLoginRequestDto {
-    username: string;
-    password: string;
+export declare class AuthLoginRequestDto {
+    readonly email: string;
+    readonly password: string;
 }

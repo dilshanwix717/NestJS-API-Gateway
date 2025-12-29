@@ -60,7 +60,7 @@ export class AuthGuard implements CanActivate {
     } catch (err) {
       this.logger.error('Token validation error', (err as Error).stack ?? err);
       // Always throw a user-facing UnauthorizedException for any validation error
-      throw new UnauthorizedException('Invalid tokensss');
+      throw new UnauthorizedException('Invalid tokens');
     }
   }
 }

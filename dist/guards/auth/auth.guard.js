@@ -49,7 +49,7 @@ let AuthGuard = AuthGuard_1 = class AuthGuard {
         }
         catch (err) {
             this.logger.error('Token validation error', err.stack ?? err);
-            throw new common_1.UnauthorizedException('Invalid tokensss');
+            throw new common_1.UnauthorizedException('Invalid tokens');
         }
     }
 };

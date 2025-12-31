@@ -14,6 +14,7 @@ const auth_controller_1 = require("./auth/auth.controller");
 const auth_service_1 = require("./auth/auth.service");
 const microservices_1 = require("@nestjs/microservices");
 const user_controller_1 = require("./user/user.controller");
+const user_profile_controller_1 = require("./user/user-profile.controller");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -39,7 +40,12 @@ exports.AppModule = AppModule = __decorate([
                 },
             ]),
         ],
-        controllers: [app_controller_1.AppController, auth_controller_1.AuthController, user_controller_1.UserController],
+        controllers: [
+            app_controller_1.AppController,
+            auth_controller_1.AuthController,
+            user_controller_1.UserController,
+            user_profile_controller_1.UserProfileController,
+        ],
         providers: [app_service_1.AppService, auth_service_1.AuthService],
     })
 ], AppModule);

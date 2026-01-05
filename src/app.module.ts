@@ -1,30 +1,56 @@
-//apps/api-gateway/src/app.module.ts
+// apps/api-gateway/src/app.module.ts
+// ====================================
+
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 import { UserController } from './user/user.controller';
 import { UserProfileController } from './user/user-profile.controller';
+import { QUEUES, SERVICES } from 'libs/common/src/constants/rabbitmq.constants';
 
 @Module({
   imports: [
+    // Global configuration
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+
+    // RabbitMQ Client Configuration
     ClientsModule.register([
       {
-        name: 'AUTH-SERVICE',
-        transport: Transport.TCP,
+        name: SERVICES.AUTH,
+        transport: Transport.RMQ,
         options: {
-          host: '127.0.0.1',
-          port: 8877,
+          urls: [process.env.RABBITMQ_URL || 'amqp://localhost:5672'],
+          queue: QUEUES.AUTH_QUEUE,
+          queueOptions: {
+            durable: true,
+          },
+          // Connection timeout
+          socketOptions: {
+            heartbeatIntervalInSeconds: 60,
+            reconnectTimeInSeconds: 5,
+          },
         },
       },
       {
-        name: 'USER-SERVICE',
-        transport: Transport.TCP,
+        name: SERVICES.USER,
+        transport: Transport.RMQ,
         options: {
-          host: '127.0.0.1',
-          port: 8878,
+          urls: [process.env.RABBITMQ_URL || 'amqp://localhost:5672'],
+          queue: QUEUES.USER_QUEUE,
+          queueOptions: {
+            durable: true,
+          },
+          socketOptions: {
+            heartbeatIntervalInSeconds: 60,
+            reconnectTimeInSeconds: 5,
+          },
         },
       },
     ]),

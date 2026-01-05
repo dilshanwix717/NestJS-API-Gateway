@@ -1,3 +1,6 @@
+// apps/api-gateway/src/auth/auth.service.ts
+// ===========================================
+
 import {
   HttpException,
   HttpStatus,
@@ -6,111 +9,169 @@ import {
   Logger,
 } from '@nestjs/common';
 import type { ClientProxy } from '@nestjs/microservices';
-import { firstValueFrom, TimeoutError } from 'rxjs';
-import { timeout } from 'rxjs/operators';
-import { inspect } from 'util';
-import { SERVICES } from '@/common/constants/services.constants';
+import { SERVICES } from 'libs/common/src/constants/rabbitmq.constants';
+import { catchError, firstValueFrom, timeout, throwError } from 'rxjs';
 
 /**
- * AuthService - Handles communication with the Auth microservice
- *
- * Responsibilities:
- * - Send requests to the Auth microservice with built-in timeout protection
- * - Handle microservice errors and map them to appropriate HTTP exceptions
- * - Log errors for debugging and observability
- *
- * Architecture:
- * - Uses NestJS ClientProxy for TCP microservice communication
- * - Implements timeout protection to prevent hanging requests
- * - Centralizes error handling and mapping logic
+ * Standard error response structure from microservices
+ */
+interface MicroserviceError {
+  statusCode?: number;
+  status?: number;
+  message?: string;
+  error?: string;
+}
+
+/**
+ * Auth Service - Gateway layer for Auth microservice communication
  */
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
-  // Request timeout in milliseconds. Configurable via MS_REQUEST_TIMEOUT env var, defaults to 5 seconds.
+
+  // Request timeout in milliseconds
   private readonly msRequestTimeout =
-    Number(process.env.MS_REQUEST_TIMEOUT) || 5000;
+    Number(process.env.MS_REQUEST_TIMEOUT) || 10000;
 
   constructor(
-    // AUTH-SERVICE is a TCP microservice client configured in AppModule
     @Inject(SERVICES.AUTH) private readonly authClient: ClientProxy,
   ) {}
 
   /**
-   * Send a request to the Auth microservice with automatic timeout protection.
+   * Sends a message to the Auth microservice via RabbitMQ
    *
-   * @template Req - The request payload type
-   * @template Res - The response payload type
-   * @param pattern - The microservice message pattern (e.g., 'auth-login', 'auth-signup')
-   * @param data - The request payload to send
-   * @returns Promise resolving to the microservice response
-   * @throws HttpException if request fails, times out, or microservice returns an error
+   * @template Req - Request payload type
+   * @template Res - Response payload type
+   * @param pattern - Message pattern (routing key)
+   * @param data - Request payload
+   * @returns Promise with microservice response
+   * @throws HttpException on timeout or microservice error
    */
   async send<Req, Res>(pattern: string, data: Req): Promise<Res> {
-    try {
-      // Create an observable that will timeout if the microservice doesn't respond in time
-      const result$ = this.authClient
-        .send<Res, Req>(pattern, data)
-        .pipe(timeout(this.msRequestTimeout));
+    this.logger.log(`Sending message to Auth service: ${pattern}`);
 
-      // Convert RxJS observable to a Promise for async/await usage
-      return await firstValueFrom(result$);
-    } catch (err) {
-      // Log the raw error for debugging (safe stringification with inspect)
-      this.logger.error(
-        'Auth microservice error',
-        inspect(err, { depth: null }),
+    try {
+      const result$ = this.authClient.send<Res, Req>(pattern, data).pipe(
+        timeout(this.msRequestTimeout),
+        catchError((error) => {
+          this.logger.error(`Microservice error for pattern ${pattern}:`, {
+            error: error?.message || error,
+            pattern,
+          });
+          return throwError(() => error);
+        }),
       );
-      // Convert microservice errors to appropriate HTTP exceptions for the client
-      throw this.mapMsErrorToHttp(err);
+
+      const result = await firstValueFrom(result$);
+
+      this.logger.log(`Received response from Auth service: ${pattern}`);
+
+      return result;
+    } catch (error) {
+      this.logger.error(`Failed to communicate with Auth service:`, {
+        pattern,
+        error: error instanceof Error ? error.message : 'Unknown error',
+      });
+
+      throw this.mapMsErrorToHttp(error);
     }
   }
 
   /**
-   * Map microservice errors to appropriate HTTP exceptions.
-   *
-   * Error mapping strategy:
-   * 1. If already an HttpException, return as-is (pass-through)
-   * 2. If a timeout error, return 504 Gateway Timeout
-   * 3. If an object with statusCode/status, extract and use that status
-   * 4. Default to 500 Internal Server Error for unknown types
-   *
-   * This ensures consistent error responses to the client while preserving
-   * meaningful error messages from the upstream microservice.
-   *
-   * @param error - The error thrown by the microservice or timeout handler
-   * @returns HttpException with appropriate status code and message
+   * Maps microservice errors to HTTP exceptions
    */
   private mapMsErrorToHttp(error: unknown): HttpException {
-    // If already an HttpException, pass it through unchanged
-    if (error instanceof HttpException) return error;
+    // Already an HttpException
+    if (error instanceof HttpException) {
+      return error;
+    }
 
-    // Timeout errors indicate the microservice was unresponsive
-    if (error instanceof TimeoutError) {
+    // Timeout error
+    if (error instanceof Error && error.name === 'TimeoutError') {
       return new HttpException(
-        'Upstream service timeout',
+        {
+          statusCode: HttpStatus.GATEWAY_TIMEOUT,
+          message: 'Auth service timeout',
+          error: 'GatewayTimeout',
+        },
         HttpStatus.GATEWAY_TIMEOUT,
       );
     }
 
-    // For object errors (typical microservice error responses), extract status and message
-    if (typeof error === 'object' && error !== null) {
-      const e = error as Record<string, unknown>;
-      // Use the message if it's a string, otherwise stringify the whole object
-      const message =
-        typeof e.message === 'string' ? e.message : JSON.stringify(e);
-
-      // Extract status code, defaulting to 400 Bad Request if not provided
+    // RabbitMQ/Microservice error
+    if (this.isMicroserviceError(error)) {
       const statusCode =
-        Number(e.statusCode ?? e.status) || HttpStatus.BAD_REQUEST;
+        error.statusCode || error.status || HttpStatus.BAD_REQUEST;
+      const message = error.message || 'Microservice error';
 
-      return new HttpException(message, statusCode);
+      return new HttpException(
+        {
+          statusCode,
+          message,
+          error: error.error || 'MicroserviceError',
+        },
+        statusCode,
+      );
     }
 
-    // Fallback for unknown error types (should rarely occur)
+    // Generic error
+    if (error instanceof Error) {
+      return new HttpException(
+        {
+          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+          message: error.message,
+          error: 'InternalServerError',
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+
+    // Unknown error type
     return new HttpException(
-      'Internal server error',
+      {
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Internal server error',
+        error: 'UnknownError',
+      },
       HttpStatus.INTERNAL_SERVER_ERROR,
     );
+  }
+
+  /**
+   * Type guard for microservice error objects
+   */
+  private isMicroserviceError(error: unknown): error is MicroserviceError {
+    return (
+      typeof error === 'object' &&
+      error !== null &&
+      ('statusCode' in error || 'status' in error || 'message' in error)
+    );
+  }
+
+  /**
+   * Ensures RabbitMQ connection is established before first use
+   */
+  async onModuleInit(): Promise<void> {
+    try {
+      await this.authClient.connect();
+      this.logger.log(
+        'Successfully connected to Auth microservice via RabbitMQ',
+      );
+    } catch (error) {
+      this.logger.error('Failed to connect to Auth microservice:', error);
+      // Don't throw - allow app to start but log connection issue
+    }
+  }
+
+  /**
+   * Cleanup RabbitMQ connection on module destroy
+   */
+  async onModuleDestroy(): Promise<void> {
+    try {
+      await this.authClient.close();
+      this.logger.log('Closed connection to Auth microservice');
+    } catch (error) {
+      this.logger.error('Error closing Auth microservice connection:', error);
+    }
   }
 }

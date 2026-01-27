@@ -26,10 +26,10 @@ import { QUEUES, SERVICES } from 'libs/common/src/constants/rabbitmq.constants';
         name: SERVICES.AUTH,
         transport: Transport.RMQ,
         options: {
-          urls: [process.env.RABBITMQ_URL || 'amqp://localhost:5672'],
+          urls: [process.env.RABBITMQ_URL],
           queue: QUEUES.AUTH_QUEUE,
           queueOptions: {
-            durable: true,
+            durable: false,
           },
           // Connection timeout
           socketOptions: {

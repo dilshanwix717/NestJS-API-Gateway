@@ -8,6 +8,7 @@ import {
   Injectable,
   Logger,
 } from '@nestjs/common';
+import util from 'util';
 import type { ClientProxy } from '@nestjs/microservices';
 import { SERVICES } from 'libs/common/src/constants/rabbitmq.constants';
 import { catchError, firstValueFrom, timeout, throwError } from 'rxjs';
@@ -54,11 +55,53 @@ export class AuthService {
       const result$ = this.authClient.send<Res, Req>(pattern, data).pipe(
         timeout(this.msRequestTimeout),
         catchError((error) => {
-          this.logger.error(`Microservice error for pattern ${pattern}:`, {
-            error: error?.message || error,
-            pattern,
-          });
-          return throwError(() => error);
+          // Helper to safely extract typed values from unknown objects
+          const getProperty = (obj: unknown, prop: string): unknown =>
+            typeof obj === 'object' && obj !== null && prop in obj
+              ? (obj as Record<string, unknown>)[prop]
+              : undefined;
+
+          // Helper to safely extract string values
+          const getString = (value: unknown): string =>
+            typeof value === 'string' ? value : '';
+
+          // build a safe error object for logging — don't pass the raw AMQP object
+          const safeError =
+            error instanceof Error
+              ? {
+                  name: error.name,
+                  message: error.message,
+                  // keep stack separate (logger may handle it)
+                  stack: getString(getProperty(error, 'stack')),
+                  // If microservice uses RpcException and includes `.response`, log its safe parts
+                  response: (() => {
+                    const response = getProperty(error, 'response');
+                    return typeof response === 'object' && response !== null
+                      ? {
+                          // copy only small, useful fields
+                          statusCode: getProperty(response, 'statusCode'),
+                          message: getProperty(response, 'message'),
+                          error: getProperty(response, 'error'),
+                        }
+                      : undefined;
+                  })(),
+                }
+              : // fallback for non-Error objects (stringify safely)
+                (() => {
+                  try {
+                    const parsed = JSON.parse(JSON.stringify(error)) as unknown;
+                    return { raw: parsed };
+                  } catch {
+                    // use util.inspect instead of JSON.stringify for circular objects
+                    return { raw: util.inspect(error, { depth: 2 }) };
+                  }
+                })();
+
+          this.logger.error(
+            `Microservice error for pattern ${pattern}`,
+            safeError,
+          );
+          return throwError(() => error as unknown);
         }),
       );
 
@@ -81,12 +124,35 @@ export class AuthService {
    * Maps microservice errors to HTTP exceptions
    */
   private mapMsErrorToHttp(error: unknown): HttpException {
-    // Already an HttpException
-    if (error instanceof HttpException) {
-      return error;
+    // If it's already an HttpException, pass through
+    if (error instanceof HttpException) return error;
+
+    // Type guard to safely access properties
+    const getProperty = (obj: unknown, prop: string): unknown => {
+      return typeof obj === 'object' && obj !== null && prop in obj
+        ? (obj as Record<string, unknown>)[prop]
+        : undefined;
+    };
+
+    // If the microservice returned a formatted response (RpcException -> .response)
+    const msResponse = getProperty(error, 'response') ?? error;
+
+    // If msResponse looks like a structured error, use it
+    if (this.isMicroserviceError(msResponse)) {
+      const statusCode =
+        msResponse.statusCode || msResponse.status || HttpStatus.BAD_REQUEST;
+      const message = msResponse.message || 'Microservice error';
+      return new HttpException(
+        {
+          statusCode,
+          message,
+          error: msResponse.error || 'MicroserviceError',
+        },
+        statusCode,
+      );
     }
 
-    // Timeout error
+    // Timeout detection (unchanged)
     if (error instanceof Error && error.name === 'TimeoutError') {
       return new HttpException(
         {
@@ -98,23 +164,7 @@ export class AuthService {
       );
     }
 
-    // RabbitMQ/Microservice error
-    if (this.isMicroserviceError(error)) {
-      const statusCode =
-        error.statusCode || error.status || HttpStatus.BAD_REQUEST;
-      const message = error.message || 'Microservice error';
-
-      return new HttpException(
-        {
-          statusCode,
-          message,
-          error: error.error || 'MicroserviceError',
-        },
-        statusCode,
-      );
-    }
-
-    // Generic error
+    // Generic Error fallback
     if (error instanceof Error) {
       return new HttpException(
         {
@@ -126,7 +176,6 @@ export class AuthService {
       );
     }
 
-    // Unknown error type
     return new HttpException(
       {
         statusCode: HttpStatus.INTERNAL_SERVER_ERROR,

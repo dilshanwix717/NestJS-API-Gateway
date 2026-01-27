@@ -15,6 +15,7 @@ var AuthService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
+const util_1 = require("util");
 const rabbitmq_constants_1 = require("../../libs/common/src/constants/rabbitmq.constants");
 const rxjs_1 = require("rxjs");
 let AuthService = AuthService_1 = class AuthService {
@@ -27,10 +28,37 @@ let AuthService = AuthService_1 = class AuthService {
         this.logger.log(`Sending message to Auth service: ${pattern}`);
         try {
             const result$ = this.authClient.send(pattern, data).pipe((0, rxjs_1.timeout)(this.msRequestTimeout), (0, rxjs_1.catchError)((error) => {
-                this.logger.error(`Microservice error for pattern ${pattern}:`, {
-                    error: error?.message || error,
-                    pattern,
-                });
+                const getProperty = (obj, prop) => typeof obj === 'object' && obj !== null && prop in obj
+                    ? obj[prop]
+                    : undefined;
+                const getString = (value) => typeof value === 'string' ? value : '';
+                const safeError = error instanceof Error
+                    ? {
+                        name: error.name,
+                        message: error.message,
+                        stack: getString(getProperty(error, 'stack')),
+                        response: (() => {
+                            const response = getProperty(error, 'response');
+                            return typeof response === 'object' && response !== null
+                                ? {
+                                    statusCode: getProperty(response, 'statusCode'),
+                                    message: getProperty(response, 'message'),
+                                    error: getProperty(response, 'error'),
+                                }
+                                : undefined;
+                        })(),
+                    }
+                    :
+                        (() => {
+                            try {
+                                const parsed = JSON.parse(JSON.stringify(error));
+                                return { raw: parsed };
+                            }
+                            catch {
+                                return { raw: util_1.default.inspect(error, { depth: 2 }) };
+                            }
+                        })();
+                this.logger.error(`Microservice error for pattern ${pattern}`, safeError);
                 return (0, rxjs_1.throwError)(() => error);
             }));
             const result = await (0, rxjs_1.firstValueFrom)(result$);
@@ -46,8 +74,22 @@ let AuthService = AuthService_1 = class AuthService {
         }
     }
     mapMsErrorToHttp(error) {
-        if (error instanceof common_1.HttpException) {
+        if (error instanceof common_1.HttpException)
             return error;
+        const getProperty = (obj, prop) => {
+            return typeof obj === 'object' && obj !== null && prop in obj
+                ? obj[prop]
+                : undefined;
+        };
+        const msResponse = getProperty(error, 'response') ?? error;
+        if (this.isMicroserviceError(msResponse)) {
+            const statusCode = msResponse.statusCode || msResponse.status || common_1.HttpStatus.BAD_REQUEST;
+            const message = msResponse.message || 'Microservice error';
+            return new common_1.HttpException({
+                statusCode,
+                message,
+                error: msResponse.error || 'MicroserviceError',
+            }, statusCode);
         }
         if (error instanceof Error && error.name === 'TimeoutError') {
             return new common_1.HttpException({
@@ -55,15 +97,6 @@ let AuthService = AuthService_1 = class AuthService {
                 message: 'Auth service timeout',
                 error: 'GatewayTimeout',
             }, common_1.HttpStatus.GATEWAY_TIMEOUT);
-        }
-        if (this.isMicroserviceError(error)) {
-            const statusCode = error.statusCode || error.status || common_1.HttpStatus.BAD_REQUEST;
-            const message = error.message || 'Microservice error';
-            return new common_1.HttpException({
-                statusCode,
-                message,
-                error: error.error || 'MicroserviceError',
-            }, statusCode);
         }
         if (error instanceof Error) {
             return new common_1.HttpException({

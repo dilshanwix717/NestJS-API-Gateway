@@ -32,10 +32,10 @@ exports.AppModule = AppModule = __decorate([
                     name: rabbitmq_constants_1.SERVICES.AUTH,
                     transport: microservices_1.Transport.RMQ,
                     options: {
-                        urls: [process.env.RABBITMQ_URL || 'amqp://localhost:5672'],
+                        urls: [process.env.RABBITMQ_URL],
                         queue: rabbitmq_constants_1.QUEUES.AUTH_QUEUE,
                         queueOptions: {
-                            durable: true,
+                            durable: false,
                         },
                         socketOptions: {
                             heartbeatIntervalInSeconds: 60,

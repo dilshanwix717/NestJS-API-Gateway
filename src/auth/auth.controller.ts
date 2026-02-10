@@ -40,13 +40,23 @@ export class AuthController {
   /**
    * User signup (registration) endpoint
    *
-   * Validation:
-   * - Email must be a valid email format
-   * - Password must be a string with minimum 6 characters
-   * - Other fields depend on AuthSignUpRequestDto schema
+   * Accepts auth credentials and required profile data. The Auth microservice
+   * creates the auth record, then orchestrates user-profile and user-status
+   * creation in the User microservice via RabbitMQ.
    *
-   * @param body - Signup credentials (email, password, etc.)
-   * @returns AuthSignUpResponseDto with user details (tokens may be included)
+   * Validation:
+   * - username must be a non-empty string
+   * - email must be a valid email format
+   * - password must be a string with minimum 8 characters
+   * - roles (optional) must be an array of strings
+   * - profile (required) nested object:
+   *   - firstName (required, max 50 chars)
+   *   - lastName  (required, max 50 chars)
+   *   - dateOfBirth (required, ISO 8601 date string)
+   *   - phone (required, max 20 chars)
+   *
+   * @param body - Signup credentials and profile data
+   * @returns AuthSignUpResponseDto with auth identity and profile summary
    * @throws HttpException on validation error, duplicate email, microservice error, or timeout
    */
   @Post('signup')
